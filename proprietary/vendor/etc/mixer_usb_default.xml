@@ -30,74 +30,74 @@
 
 	<!-- APCall(Communication) playback paths -->
 	<path name="communication-usb-headset-gain">
-		<ctl name="Headset Playback Volume" value="117" />
+		<ctl name="Headset Playback Volume" value="115" />
 	</path>
 
 	<!-- samsung voip fmc playback -->
 	<path name="samsung_voip_fmc-usb-headset-gain">
-		<ctl name="Headset Playback Volume" value="109" />
+		<ctl name="Headset Playback Volume" value="115" />
 	</path>
 
 	<!-- WiFICall playback paths -->
 	<!-- WiFiCall AP NB -->
 	<path name="wificall_nb-usb-headset-gain">
-		<ctl name="Headset Playback Volume" value="117" />
+		<ctl name="Headset Playback Volume" value="115" />
 	</path>
 
 	<!-- WiFiCall AP WB -->
 	<path name="wificall_wb-usb-headset-gain">
-		<ctl name="Headset Playback Volume" value="117" />
+		<ctl name="Headset Playback Volume" value="115" />
 	</path>
 
 	<!-- WiFiCall AP EVS -->
 	<path name="wificall_evs-usb-headset-gain">
-		<ctl name="Headset Playback Volume" value="117" />
+		<ctl name="Headset Playback Volume" value="115" />
 	</path>
 
 	<!-- VideoCall playback paths -->
 	<path name="video_call-usb-headset-gain">
-		<ctl name="Headset Playback Volume" value="117" />
+		<ctl name="Headset Playback Volume" value="115" />
 	</path>
 
 	<!-- VoiceCall paths -->
 	<!-- VoiceCall CP NB -->
 	<path name="incall_nb-usb-headset-gain">
-		<ctl name="Headset Playback Volume" value="117" />
+		<ctl name="Headset Playback Volume" value="115" />
 	</path>
 
 	<!-- VoiceCall CP WB -->
 	<path name="incall_wb-usb-headset-gain">
-		<ctl name="Headset Playback Volume" value="117" />
+		<ctl name="Headset Playback Volume" value="115" />
 	</path>
 
 	<!-- VoLTECall CP NB -->
 	<path name="volte_cp_nb-usb-headset-gain">
-		<ctl name="Headset Playback Volume" value="117" />
+		<ctl name="Headset Playback Volume" value="115" />
 	</path>
 
 	<!-- VoLTECall CP WB -->
 	<path name="volte_cp_wb-usb-headset-gain">
-		<ctl name="Headset Playback Volume" value="117" />
+		<ctl name="Headset Playback Volume" value="115" />
 	</path>
 
 	<!-- VoLTECall CP EVS -->
 	<path name="volte_cp_evs-usb-headset-gain">
-		<ctl name="Headset Playback Volume" value="117" />
+		<ctl name="Headset Playback Volume" value="115" />
 	</path>
 
 	<!-- VoLTE VideoCall CP NB -->
 	<path name="volte_vt_cp_nb-usb-headset-gain">
-		<ctl name="Headset Playback Volume" value="117" />
+		<ctl name="Headset Playback Volume" value="115" />
 	</path>
 
 	<!-- VoLTE VideoCall CP WB -->
 	<path name="volte_vt_cp_wb-usb-headset-gain">
-		<ctl name="Headset Playback Volume" value="117" />
+		<ctl name="Headset Playback Volume" value="115" />
 	</path>
 
 	<!-- VoLTE VideoCall CP EVS -->
 	<path name="volte_vt_cp_evs-usb-headset-gain">
-		<ctl name="Headset Playback Volume" value="117" />
+		<ctl name="Headset Playback Volume" value="115" />
 	</path>
 
 	<!-- TTY Mode -->
@@ -163,76 +163,76 @@
 
 	<!-- APCall TX paths -->
 	<path name="communication-usb-headset-mic-gain">
-		<ctl name="Headset Capture Volume" value="116" />
+		<ctl name="Headset Capture Volume" value="120" />
 	</path>
 
 	<!-- samsung voip fmc input -->
 	<path name="samsung_voip_fmc-usb-headset-mic-gain">
-		<ctl name="Headset Capture Volume" value="116" />
+		<ctl name="Headset Capture Volume" value="120" />
 	</path>
 
 	<!-- WiFiCall Input paths -->
 	<!-- WiFiCall AP NB -->
 	<path name="wificall_nb-usb-headset-mic-gain">
-		<ctl name="Headset Capture Volume" value="116" />
+		<ctl name="Headset Capture Volume" value="120" />
 	</path>
 
 	<!-- WiFiCall AP WB -->
 	<path name="wificall_wb-usb-headset-mic-gain">
-		<ctl name="Headset Capture Volume" value="116" />
+		<ctl name="Headset Capture Volume" value="120" />
 	</path>
 
 	<!-- WiFiCall AP EVS -->
 	<path name="wificall_evs-usb-headset-mic-gain">
-		<ctl name="Headset Capture Volume" value="113" />
+		<ctl name="Headset Capture Volume" value="120" />
 	</path>
 
 	<!-- Video Call Input paths -->
 	<path name="video_call-usb-headset-mic-gain">
-		<ctl name="Headset Capture Volume" value="116" />
+		<ctl name="Headset Capture Volume" value="120" />
 	</path>
 
 	<!-- VoiceCall TX paths -->
 	<!-- VoiceCall CP NB -->
 	<path name="incall_nb-usb-headset-mic-gain">
-		<ctl name="Headset Capture Volume" value="116" />
+		<ctl name="Headset Capture Volume" value="120" />
 	</path>
 
 	<!-- VoiceCall CP WB -->
 	<path name="incall_wb-usb-headset-mic-gain">
-		<ctl name="Headset Capture Volume" value="116" />
+		<ctl name="Headset Capture Volume" value="120" />
 	</path>
 
 	<!-- VoLTECall TX paths -->
 	<!-- VoiceCall CP NB -->
 	<path name="volte_cp_nb-usb-headset-mic-gain">
-		<ctl name="Headset Capture Volume" value="116" />
+		<ctl name="Headset Capture Volume" value="120" />
 	</path>
 
 	<!-- VoiceCall CP WB -->
 	<path name="volte_cp_wb-usb-headset-mic-gain">
-		<ctl name="Headset Capture Volume" value="116" />
+		<ctl name="Headset Capture Volume" value="120" />
 	</path>
 
 	<!-- VoiceCall CP EVS -->
 	<path name="volte_cp_evs-usb-headset-mic-gain">
-		<ctl name="Headset Capture Volume" value="113" />
+		<ctl name="Headset Capture Volume" value="120" />
 	</path>
 
 	<!-- VoLTE VideoCall TX paths -->
 	<!-- VoLTE VideoCall CP NB -->
 	<path name="volte_vt_cp_nb-usb-headset-mic-gain">
-		<ctl name="Headset Capture Volume" value="116" />
+		<ctl name="Headset Capture Volume" value="120" />
 	</path>
 
 	<!-- VoLTE VideoCall CP WB -->
 	<path name="volte_vt_cp_wb-usb-headset-mic-gain">
-		<ctl name="Headset Capture Volume" value="116" />
+		<ctl name="Headset Capture Volume" value="120" />
 	</path>
 
 	<!-- VoLTE VideoCall CP EVS -->
 	<path name="volte_vt_cp_evs-usb-headset-mic-gain">
-		<ctl name="Headset Capture Volume" value="113" />
+		<ctl name="Headset Capture Volume" value="120" />
 	</path>
 
 	<!-- TTY Mode Input paths -->

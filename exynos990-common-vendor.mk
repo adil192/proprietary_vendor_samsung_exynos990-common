@@ -132,7 +132,7 @@ PRODUCT_COPY_FILES += \
     vendor/samsung/exynos990-common/proprietary/vendor/firmware/libnn.elf:$(TARGET_COPY_OUT_VENDOR)/firmware/libnn.elf \
     vendor/samsung/exynos990-common/proprietary/vendor/firmware/listenbackeffect.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/listenbackeffect.bin \
     vendor/samsung/exynos990-common/proprietary/vendor/firmware/mfc_fw.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/mfc_fw.bin \
-    vendor/samsung/exynos990-common/proprietary/vendor/firmware/nfc/sec_s3nsen4_firmware.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/nfc/sec_s3nsen4_firmware.bin \
+    vendor/samsung/exynos990-common/proprietary/vendor/firmware/nfc/sec_s3nrn4v_firmware.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/nfc/sec_s3nrn4v_firmware.bin \
     vendor/samsung/exynos990-common/proprietary/vendor/firmware/nvram.txt_1rh_es11_b0:$(TARGET_COPY_OUT_VENDOR)/firmware/nvram.txt_1rh_es11_b0 \
     vendor/samsung/exynos990-common/proprietary/vendor/firmware/nvram.txt_1rh_es12_b0:$(TARGET_COPY_OUT_VENDOR)/firmware/nvram.txt_1rh_es12_b0 \
     vendor/samsung/exynos990-common/proprietary/vendor/firmware/nvram.txt_1rh_es13_b0:$(TARGET_COPY_OUT_VENDOR)/firmware/nvram.txt_1rh_es13_b0 \
@@ -181,7 +181,7 @@ PRODUCT_COPY_FILES += \
     vendor/samsung/exynos990-common/proprietary/vendor/lib/libOpenCv.camera.samsung.so:$(TARGET_COPY_OUT_VENDOR)/lib/libOpenCv.camera.samsung.so \
     vendor/samsung/exynos990-common/proprietary/vendor/lib/libSEF.quram.so:$(TARGET_COPY_OUT_VENDOR)/lib/libSEF.quram.so \
     vendor/samsung/exynos990-common/proprietary/vendor/lib/libSamsungPostProcessConvertor.so:$(TARGET_COPY_OUT_VENDOR)/lib/libSamsungPostProcessConvertor.so \
-    vendor/samsung/exynos990-common/proprietary/vendor/lib/lib_SamsungRec_08020.so:$(TARGET_COPY_OUT_VENDOR)/lib/lib_SamsungRec_08020.so \
+    vendor/samsung/exynos990-common/proprietary/vendor/lib/lib_SamsungRec_07020.so:$(TARGET_COPY_OUT_VENDOR)/lib/lib_SamsungRec_07020.so \
     vendor/samsung/exynos990-common/proprietary/vendor/lib/lib_SoundAlive_3DPosition_ver202.so:$(TARGET_COPY_OUT_VENDOR)/lib/lib_SoundAlive_3DPosition_ver202.so \
     vendor/samsung/exynos990-common/proprietary/vendor/lib/lib_SoundAlive_AlbumArt_ver105.so:$(TARGET_COPY_OUT_VENDOR)/lib/lib_SoundAlive_AlbumArt_ver105.so \
     vendor/samsung/exynos990-common/proprietary/vendor/lib/lib_SoundAlive_SRC384_ver320.so:$(TARGET_COPY_OUT_VENDOR)/lib/lib_SoundAlive_SRC384_ver320.so \

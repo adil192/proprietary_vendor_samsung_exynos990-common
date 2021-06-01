@@ -28,6 +28,7 @@
   <!-- DEMUX2 : 3rd-mic (mic3 l/r) -->
   <!-- DEMUX3 : multi-mic (mic1,mic2,mic3,mic4 4ch) -->
   <!-- DEMUX4 : dual-mic (mic1 l, mic2 r) -->
+  <!-- DEMUX5 : dual-invert-mic (mic1 r, mic2 l) -->
 
   <include name="/vendor/etc/mixer_gains.xml" />
 
@@ -215,6 +216,8 @@
     <ctl name="ABOX TDM_DEMUX1_A" value="None" />
     <ctl name="ABOX TDM_DEMUX2_A" value="None" />
     <ctl name="ABOX TDM_DEMUX3_A" value="None" />
+    <ctl name="ABOX TDM_DEMUX4_A" value="None" />
+    <ctl name="ABOX TDM_DEMUX5_A" value="None" />
 
     <!-- Virtual Input DAI component in-control initialized -->
     <ctl name="ABOX VPCMIN_DAI0_A" value="None" />
@@ -312,6 +315,9 @@
     <ctl name="VTS Channel Map7" value="7" />
 
     <ctl name="ABOX Internal Loopback Enable" value="0" />
+
+    <!-- CPD disable to avoid noise -->
+    <ctl name="CPD Disable" value="0" />
 
   <!-- Common A-Box RX Path configurations -->
     <path name="route-sifs0-to-uaif0">
@@ -651,6 +657,7 @@
         <!--ctl name="ABOX VPCMIN_DAI0_A" value="MCD_TXSE2" /-->
         <ctl name="ABOX CHMATCHER_A" value="MCD_TXSE2" />
         <ctl name="ABOX VPCMIN_DAI0_A" value="CHMATCHER" />
+        <ctl name="ABOX OEM NXP Mode" value="1" />
     </path>
 
     <path name="route-vssadapter-txse1-chmatcher-vpcmdai0">
@@ -895,13 +902,19 @@
         <ctl name="ABOX TDM_DEMUX4_A" value="WDMA4" />
     </path>
 
+    <!-- dual-invert-mic wdma4 to Demux5 -->
+    <path name="route-wdma4-to-tdmdemux5">
+        <!-- wdma4 to demux5 for dual-invert-mic -->
+        <ctl name="ABOX TDM_DEMUX5_A" value="WDMA4" />
+    </path>
+
     <!-- dual-mic wdma2 to Demux4 -->
     <path name="route-wdma2-to-tdmdemux4">
         <!-- wdma2 to demux4 for dual-mic -->
         <ctl name="ABOX TDM_DEMUX4_A" value="WDMA2" />
     </path>
 
-	<!-- dual-mic wdma2 to Demux3 -->
+    <!-- dual-mic wdma2 to Demux3 -->
     <path name="route-wdma2-to-tdmdemux3">
         <!-- wdma2 to demux3 for dual-mic -->
         <ctl name="ABOX TDM_DEMUX3_A" value="WDMA2" />
@@ -935,6 +948,11 @@
     <path name="route-tdmdemux4-to-vpcmindai0">
         <!-- demux4 to vpcmin_dai0 -->
         <ctl name="ABOX VPCMIN_DAI0_A" value="TDM_DEMUX4" />
+    </path>
+
+    <path name="route-tdmdemux5-to-vpcmindai0">
+        <!-- demux4 to vpcmin_dai0 -->
+        <ctl name="ABOX VPCMIN_DAI0_A" value="TDM_DEMUX5" />
     </path>
 
     <!-- Demux0 to vpcmindai1 path -->
@@ -1040,6 +1058,10 @@
 
     <path name="route-tdmdemux4-to-vssadapter_a">
         <ctl name="ABOX VSS_TXADAPTER_A" value="TDM_DEMUX4" />
+    </path>
+
+    <path name="route-tdmdemux5-to-vssadapter_a">
+        <ctl name="ABOX VSS_TXADAPTER_A" value="TDM_DEMUX5" />
     </path>
 
     <path name="route-wdma4-to-vssadapter_a">
@@ -1323,8 +1345,9 @@
         <ctl name="Left ASP TX3 Source" value="Zero" />
         <ctl name="Left ASP TX4 Source" value="Zero" />
         <ctl name="Left PCM Source" value="ASP" />
-        <ctl name="Left Boost Enable" value="Disabled" />
+        <ctl name="Left Boost Enable" value="Enabled" />
         <ctl name="Left AMP Enable Switch" value="1" />
+        <ctl name="CPD Disable" value="1" />
     </path>
 
     <path name="dev-speaker">
@@ -1994,9 +2017,11 @@
     <!-- Remote MIC playback paths -->
     <path name="route-remote_mic-comp-pipeline">
         <path name="dev-dual-invert-mic" />
-        <path name="set-seriallif-wdma2-16bit-pdsz20-config" />
+        <path name="set-seriallif-wdma2-16bit-pdsz5-config" />
         <path name="route-uaif6-to-nsrc2" />
         <path name="route-nsrc2-to-wdma2" />
+        <ctl name="ABOX WDMA2 Auto Fade In" value="1" />
+        <ctl name="ABOX WDMA2 Vol Change" value="256" />
         <!-- Mic dummy tirgger path -->
         <path name="route-wdma2-to-vpcmindai7" />
         <path name="route-wdma2-to-tdmdemux4" />
@@ -2015,19 +2040,19 @@
     </path>
 
     <path name="remote_mic-bt-sco-headset">
-        <path name="route-tdmdemux4-txse2-rxse-srccom6_a" />
+        <path name="route-tdmdemux4-txse1-srccom6_a" />
         <path name="route-vpcmoutdai6-to-srccom6_b" />
         <path name="media-bt-sco-headset" />
     </path>
 
     <path name="remote_mic-usb-headset">
-        <path name="route-tdmdemux4-txse2-rxse-srccom6_a" />
+        <path name="route-tdmdemux4-txse1-srccom6_a" />
         <path name="route-vpcmoutdai6-to-srccom6_b" />
         <path name="media-usb-headset" />
     </path>
 
     <path name="remote_mic-direct-usb-headset">
-        <path name="route-tdmdemux4-txse2-rxse-srccom6_a" />
+        <path name="route-tdmdemux4-txse1-srccom6_a" />
         <path name="route-vpcmoutdai6-to-srccom6_b" />
         <path name="media-direct-usb-headset" />
     </path>
@@ -2391,7 +2416,7 @@
 
     <path name="incall-usb-headset">
         <ctl name="ABOX Path Change ID" value="12" />
-		<path name="media-usb-headset" />
+        <path name="media-usb-headset" />
         <path name="route-vssrxif-vssbridge-rxse-to-srccom4" />
         <path name="route-vpcmoutdai4-to-srccom4_b" />
         <path name="route-vssbridge-to-callrec_a" />
@@ -3069,12 +3094,12 @@
         <ctl name="ABOX Call Path Param" value="0" />
         <ctl name="ABOX SE Standalone" value="1" />
         <ctl name="ABOX OEM NXP Mode" value="2" />
-        <path name="dev-multi-mic" />
+        <path name="dev-dual-mic" />
         <path name="set-call-seriallif-wdma4-16bit-config" />
         <path name="route-seriallif-16bit-to-wdma4" />
-        <path name="route-wdma4-to-tdmdemux3" />
+        <path name="route-wdma4-to-tdmdemux4" />
         <path name="route-call-spkrcv-refdata-vssadapter_b" />
-        <path name="route-tdmdemux3-to-vssadapter_a" />
+        <path name="route-tdmdemux4-to-vssadapter_a" />
         <path name="route-vssadapter-txse1-chmatcher-vpcmdai0" />
     </path>
 
@@ -3253,6 +3278,18 @@
         <path name="route-wdma4-to-tdmdemux0" />
     </path>
 
+    <path name="route-seriallif-apcall-dual-mic">
+        <path name="set-call-seriallif-wdma4-16bit-config" />
+        <path name="route-seriallif-uaif6-to-wdma4" />
+        <path name="route-wdma4-to-tdmdemux4" />
+    </path>
+
+    <path name="route-seriallif-apcall-dual-invert-mic">
+        <path name="set-call-seriallif-wdma4-16bit-config" />
+        <path name="route-seriallif-uaif6-to-wdma4" />
+        <path name="route-wdma4-to-tdmdemux5" />
+    </path>
+
     <path name="route-seriallif-apcall-multi-mic">
         <path name="set-call-seriallif-wdma4-16bit-config" />
         <path name="route-seriallif-uaif6-to-wdma4" />
@@ -3265,23 +3302,25 @@
     </path>
 
     <path name="communication-handset-mic">
-        <path name="dev-multi-mic" />
-        <path name="route-seriallif-apcall-multi-mic" />
+        <path name="dev-dual-mic" />
+        <path name="route-seriallif-apcall-dual-mic" />
         <path name="route-call-spkrcv-refdata-vssadapter_b" />
-        <path name="route-tdmdemux3-to-vssadapter_a" />
-        <path name="route-vssadapter-sv-txse2-vpcmdai0" />
+        <path name="route-tdmdemux4-to-vssadapter_a" />
+        <path name="route-vssadapter-txse1-txse2-vpcmdai0" />
         <path name="route-txse-to-callrec_b" />
         <path name="route-callrec-to-vpcmindai5" />
+        <ctl name="ABOX OEM NXP Mode" value="1" />
     </path>
 
     <path name="communication-speaker-mic">
-        <path name="dev-multi-mic" />
-        <path name="route-seriallif-apcall-multi-mic" />
+        <path name="dev-dual-mic" />
+        <path name="route-seriallif-apcall-dual-invert-mic" />
         <path name="route-call-spkrcv-refdata-vssadapter_b" />
-        <path name="route-tdmdemux3-to-vssadapter_a" />
-        <path name="route-vssadapter-sv-txse2-vpcmdai0" />
+        <path name="route-tdmdemux5-to-vssadapter_a" />
+        <path name="route-vssadapter-txse1-txse2-vpcmdai0" />
         <path name="route-txse-to-callrec_b" />
         <path name="route-callrec-to-vpcmindai5" />
+        <ctl name="ABOX OEM NXP Mode" value="1" />
     </path>
 
     <path name="communication-dual-speaker-mic">
@@ -3315,23 +3354,25 @@
     </path>
 
     <path name="communication-headphone-mic">
-        <path name="dev-multi-mic" />
-        <path name="route-seriallif-apcall-multi-mic" />
+        <path name="dev-dual-mic" />
+        <path name="route-seriallif-apcall-dual-mic" />
         <!-- reference data from bdmixer -->
         <path name="route-call-bdmixer-refdata-vssadapter_b" />
-        <path name="route-tdmdemux3-to-vssadapter_a" />
-        <path name="route-vssadapter-sv-txse2-vpcmdai0" />
+        <path name="route-tdmdemux4-to-vssadapter_a" />
+        <path name="route-vssadapter-txse1-txse2-vpcmdai0" />
         <path name="route-txse-to-callrec_b" />
         <path name="route-callrec-to-vpcmindai5" />
+        <ctl name="ABOX OEM NXP Mode" value="1" />
     </path>
 
     <path name="communication-bt-sco-headset-in">
         <path name="route-btsco-apcall-mic" />
         <path name="route-call-bdmixer-refdata-vssadapter_b" />
         <path name="route-wdma4-to-vssadapter_a" />
-        <path name="route-vssadapter-sv-txse2-vpcmdai0" />
+        <path name="route-vssadapter-txse1-txse2-vpcmdai0" />
         <path name="route-txse-to-callrec_b" />
         <path name="route-callrec-to-vpcmindai5" />
+        <ctl name="ABOX OEM NXP Mode" value="1" />
     </path>
 
     <path name="communication-bt-sco-nrec-headset-in">
@@ -3342,7 +3383,8 @@
         <path name="route-usbincom-enable" />
         <path name="route-call-bdmixer-refdata-vssadapter_b" />
         <path name="route-usbincom-to-vssadapter_a" />
-        <path name="route-vssadapter-sv-txse2-vpcmdai0" />
+        <path name="route-vssadapter-txse1-txse2-vpcmdai0" />
+        <ctl name="ABOX OEM NXP Mode" value="1" />
     </path>
 
     <path name="communication-loop-usb-headset-mic">
@@ -3354,9 +3396,10 @@
         <path name="route-nsrc4-to-wdma4" />
         <path name="route-call-bdmixer-refdata-vssadapter_b" />
         <path name="route-wdma4-to-vssadapter_a" />
-        <path name="route-vssadapter-sv-txse2-vpcmdai0" />
+        <path name="route-vssadapter-txse1-txse2-vpcmdai0" />
         <path name="route-txse-to-callrec_b" />
         <path name="route-callrec-to-vpcmindai5" />
+        <ctl name="ABOX OEM NXP Mode" value="1" />
     </path>
 
    <!-- VoIP Input paths -->
@@ -3440,19 +3483,19 @@
     <!-- WiFiCall Input paths -->
     <!-- WiFiCall AP NB -->
     <path name="wificall_nb-handset-mic">
-        <path name="dev-multi-mic" />
-        <path name="route-seriallif-apcall-multi-mic" />
+        <path name="dev-dual-mic" />
+        <path name="route-seriallif-apcall-dual-mic" />
         <path name="route-call-spkrcv-refdata-vssadapter_b" />
-        <path name="route-tdmdemux3-to-vssadapter_a" />
+        <path name="route-tdmdemux4-to-vssadapter_a" />
         <path name="route-vssadapter-txse1-txse2-vpcmdai0" />
         <ctl name="ABOX OEM NXP Mode" value="1" />
     </path>
 
     <path name="wificall_nb-speaker-mic">
-        <path name="dev-multi-mic" />
-        <path name="route-seriallif-apcall-multi-mic" />
+        <path name="dev-dual-mic" />
+        <path name="route-seriallif-apcall-dual-invert-mic" />
         <path name="route-call-spkrcv-refdata-vssadapter_b" />
-        <path name="route-tdmdemux3-to-vssadapter_a" />
+        <path name="route-tdmdemux5-to-vssadapter_a" />
         <path name="route-vssadapter-txse1-txse2-vpcmdai0" />
         <ctl name="ABOX OEM NXP Mode" value="1" />
     </path>
@@ -3470,11 +3513,11 @@
     </path>
 
     <path name="wificall_nb-headphone-mic">
-        <path name="dev-multi-mic" />
-        <path name="route-seriallif-apcall-multi-mic" />
+        <path name="dev-dual-mic" />
+        <path name="route-seriallif-apcall-dual-mic" />
         <!-- reference data from bdmixer -->
         <path name="route-call-bdmixer-refdata-vssadapter_b" />
-        <path name="route-tdmdemux3-to-vssadapter_a" />
+        <path name="route-tdmdemux4-to-vssadapter_a" />
         <path name="route-vssadapter-txse1-txse2-vpcmdai0" />
         <ctl name="ABOX OEM NXP Mode" value="1" />
     </path>
@@ -3711,6 +3754,24 @@
         <path name="route-txse2-to-vpcmindai0" />
     </path>
 
+    <path name="route-seriallif-cpcall-dual-mic">
+        <path name="set-call-seriallif-wdma4-16bit-config" />
+        <path name="route-seriallif-uaif6-to-wdma4" />
+        <path name="route-wdma4-to-tdmdemux4" />
+        <path name="route-wdma4-to-tdmdemux0" />
+        <!-- primary stream node -->
+        <path name="route-tdmdemux4-to-vpcmindai0" />
+    </path>
+
+    <path name="route-seriallif-cpcall-dual-invert-mic">
+        <path name="set-call-seriallif-wdma4-16bit-config" />
+        <path name="route-seriallif-uaif6-to-wdma4" />
+        <path name="route-wdma4-to-tdmdemux5" />
+        <path name="route-wdma4-to-tdmdemux0" />
+        <!-- primary stream node -->
+        <path name="route-tdmdemux5-to-vpcmindai0" />
+    </path>
+
     <path name="route-seriallif-cpcall-multi-mic">
         <path name="set-call-seriallif-wdma4-16bit-config" />
         <path name="route-seriallif-uaif6-to-wdma4" />
@@ -3756,10 +3817,6 @@
     <path name="route-vssadapter-txse2-vssiftx">
         <ctl name="ABOX MCD_TXSE2_A" value="VSS_TXADAPTER" />
         <ctl name="ABOX VSSIF_TX_A" value="MCD_TXSE2" />
-    </path>
-
-    <path name="route-vssadapter-vssiftx">
-        <ctl name="ABOX VSSIF_TX_A" value="VSS_TXADAPTER" />
     </path>
 
     <path name="route-cp-spkrcv-txse-vssiftx">
@@ -3818,10 +3875,10 @@
 
     <!-- VoiceCall CP NB -->
     <path name="incall_nb-handset-mic">
-        <path name="dev-multi-mic" />
-        <path name="route-seriallif-cpcall-multi-mic" />
+        <path name="dev-dual-mic" />
+        <path name="route-seriallif-cpcall-dual-mic" />
         <path name="route-call-spkrcv-refdata-vssadapter_b" />
-        <path name="route-tdmdemux3-to-vssadapter_a" />
+        <path name="route-tdmdemux4-to-vssadapter_a" />
         <path name="route-vssadapter-txse-vssiftx" />
         <!--path name="route-vssadapter-txse1-vssiftx" /-->
         <!--path name="route-vssadapter-txse2-vssiftx" /-->
@@ -3833,10 +3890,10 @@
     </path>
 
     <path name="incall_nb-speaker-mic">
-        <path name="dev-multi-mic" />
-        <path name="route-seriallif-cpcall-multi-mic" />
+        <path name="dev-dual-mic" />
+        <path name="route-seriallif-cpcall-dual-invert-mic" />
         <path name="route-call-spkrcv-refdata-vssadapter_b" />
-        <path name="route-tdmdemux3-to-vssadapter_a" />
+        <path name="route-tdmdemux5-to-vssadapter_a" />
         <path name="route-vssadapter-txse-vssiftx" />
         <!--path name="route-vssadapter-txse1-vssiftx" /-->
         <!--path name="route-vssadapter-txse2-vssiftx" /-->
@@ -3861,10 +3918,10 @@
     </path>
 
     <path name="incall_nb-headphone-mic">
-        <path name="dev-multi-mic" />
-        <path name="route-seriallif-cpcall-multi-mic" />
+        <path name="dev-dual-mic" />
+        <path name="route-seriallif-cpcall-dual-mic" />
         <path name="route-call-bdmixer-refdata-vssadapter_b" />
-        <path name="route-tdmdemux3-to-vssadapter_a" />
+        <path name="route-tdmdemux4-to-vssadapter_a" />
         <path name="route-vssadapter-txse-vssiftx" />
         <!-- vpcmdai3 routing for CP Tx trigger -->
         <path name="route-txse-to-vpcmindai3" />
@@ -3918,10 +3975,10 @@
     </path>
 
     <path name="incall_nb-hearing-aid-mic">
-        <path name="dev-multi-mic" />
-        <path name="route-seriallif-cpcall-multi-mic" />
+        <path name="dev-dual-mic" />
+        <path name="route-seriallif-cpcall-dual-mic" />
         <path name="route-call-hearingaid-refdata-vssadapter_b" />
-        <path name="route-tdmdemux3-to-vssadapter_a" />
+        <path name="route-tdmdemux4-to-vssadapter_a" />
         <path name="route-vssadapter-txse-vssiftx" />
         <!--path name="route-vssadapter-txse1-vssiftx" /-->
         <!--path name="route-vssadapter-txse2-vssiftx" /-->
@@ -4261,7 +4318,7 @@
     <path name="call_forwarding_primary-mic">
         <!-- AP Rx -> CP Tx upto sifs0 routing is completd in out path -->
         <!--path name="route-vssadapter-txse-vssiftx" /-->
-        <path name="route-vssadapter-vssiftx" />
+        <path name="route-vssadapter-txse1-vssiftx" />
         <path name="set-callforward-wdma4-16bit-config" />
         <path name="route-wdma4-to-vssadapter_a" />
         <path name="route-nsrc4-to-wdma4" />
